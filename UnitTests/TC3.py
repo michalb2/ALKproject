@@ -31,20 +31,20 @@ class CheckingDescriptionOfAllPhonesFromCSV(unittest.TestCase):
             for row in csv_reader:
                 phone_names.append(row[0])
 
-        # Iterate over each phone names from the CSV file
+        # 3. Iterate over each phone names from the CSV file
         for phone_name in phone_names:
-            # Clicking on the selected phone
+            # 3a. Clicking on the selected phone
             phone_item = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, f"//a[contains(text(), '{phone_name}')]")))
             phone_item.click()
 
-            # Verifying if the price and product description are displayed
+            # 3b. Verifying if the price and product description are displayed
             phone_price = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "price-container"))).text
             phone_description = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, "more-information"))).text
 
-            # Assert that both the price and product description are displayed
+            # 3c. Assert that both the price and product description are displayed
             self.assertTrue(phone_price and phone_description, f"Price and product description for {phone_name} are not displayed.")
 
-            # Going back to the Phones category page
+            # 3d Going back to the Phones category page
             self.driver.execute_script("window.history.go(-1)")
 
 
